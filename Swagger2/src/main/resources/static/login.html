@@ -1,0 +1,193 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <script src="jquery-2.2.0.min.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <title>百度登录框</title>
+
+    <style type="text/css">
+        *{margin: 0;padding: 0;}
+        body
+        {
+            font-size: 12px;
+        }
+        a
+        {
+            text-decoration: none;
+            color: #2647CB;
+        }
+        a:hover
+        {
+            text-decoration: underline;
+            color: red;
+        }
+        .wrap
+        {
+            width: 390px;
+            height: 450px;
+            margin: 50px auto;
+            border: 1px solid #8A8989;
+            position: relative;
+        }
+        .main
+        {
+            width: 350px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        .header
+        {
+            width: 100%;
+            height: 50px;
+
+            line-height: 50px;
+            /*background-image: url(images/foot.png);*/
+            background-color: rgb(247,247,247);
+            background-repeat: no-repeat;
+        }
+        .header h3
+        {
+            display: inline-block;
+            line-height: 50px;
+            margin-left: 50px;
+        }
+        .header span
+        {
+            display: inline-block;
+            float: right;
+            margin: auto 15px;
+            font-size: 30px;
+        }
+
+        .inputDiv
+        {
+            display: block;
+            width: 350px;
+            height: 40px;
+            margin: 10px auto;
+        }
+
+        .phoneIn
+        {
+            display: inline-block;
+            float: right;
+            font-size: 14px;
+            /*background-image: url(images/phone.png);*/
+            background-repeat: no-repeat;
+            margin: 30px 0px 10px 0px;
+        }
+        .smBtn
+        {
+            background: #2066C5;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            height: 50px;
+            border-radius: 4px;
+        }
+        .smBtn:hover
+        {
+            background: #4067EE;
+        }
+        .pull-right
+        {
+            display: inline-block;
+            float: right;
+
+        }
+        .other
+        {
+            width: 350px;
+            padding-top: 50px;
+            margin: 0 auto;
+        }
+
+
+        .toggleDiv
+        {
+
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+            z-index: 1000;
+        }
+
+        .weima
+        {
+            text-align: center;
+            padding-top: 50px;
+            width: 390px;
+            height: 400px;
+        }
+        .weima p
+        {
+            line-height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+<!-- 账号密码登录 -->
+<div class="wrap">
+    <div class="header">
+
+        <h3>登录百度账号</h3>
+        <span>X</span>
+    </div>
+    <div class="main">
+        <a href="" class="phoneIn">短信快捷登录</a>
+
+           用户名: <input type="text" id="username" class="inputDiv">
+           密  码: <input type="password" id="pwd" class="inputDiv">
+            <p class="inputDiv">
+                <input type="checkbox" value="checked" checked="checked">
+                <a href="" class="pull-right" >登录遇到问题</a>
+            </p>
+            <input type="submit" onclick="sub()" value="登录"  class="inputDiv smBtn">
+            <a href="" class="pull-right" >立即注册</a>
+
+    </div>
+
+
+</div>
+
+<script type='text/javascript'>
+
+    function sub(){
+
+        var username = $("#username").val();
+        var val = $("#pwd").val();
+        var json={"userName":username,"password":val};
+        alert(username+val);
+        $.ajax({
+            method:"post",
+            url:"/query",
+            data:JSON.stringify(json),
+            contentType:"application/json;charset=UTF-8",
+            dataType:"json",
+            success:function (data) {
+                if (data.success=='true'){
+                    alert("用户名:"+data.body.user.userName);
+                    window.location.reload();
+                }else if(data.success=='false'){
+                    alert(data.errMsg);
+                }
+            }
+        })
+
+    }
+
+
+
+
+</script>
+
+
+
+
+
+
+</body>
+</html>
